@@ -1,0 +1,6 @@
+mongodata/
+.env
+node_modules/
+__pycache__/
+.DS_Store
+.vscode/
