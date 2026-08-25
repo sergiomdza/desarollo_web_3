@@ -7,4 +7,5 @@ Al principio del semestre:
 - cada persona tendrá su propia rama y se encargará de seguir la clase
 - cada rama tendrá nombre_apellido 
 
--
+Siguiente comando
+- docker run --name backend_productos_container -p 8000:8000 backend_productos
