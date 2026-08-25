@@ -1,2 +1,3 @@
 mongo_data/
 CLAUDE.md
+__pycache__/
