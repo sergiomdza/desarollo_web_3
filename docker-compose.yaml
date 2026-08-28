@@ -9,3 +9,20 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+    networks:
+      - backendNetworks
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    image: backend
+    container_name: backend_container
+    ports:
+      - "8089:8000"
+    networks:
+      - backendNetworks
+
+networks:
+  backendNetworks:
+    driver: bridge

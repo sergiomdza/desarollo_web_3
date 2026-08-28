@@ -1,1 +1,3 @@
 /mongo_data
+/backend/poetry.lock
+backend/__pycache__
