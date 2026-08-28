@@ -3,13 +3,18 @@ name = "backend"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+authors = [
+    {name = "G2Titan",email = "93502813+G2Titan@users.noreply.github.com"}
 ]
 requires-python = ">=3.11"
 dependencies = [
     "pymongo (>=4.17.0,<5.0.0)",
     "fastapi (>=0.141.1,<0.142.0)",
-    "uvicorn (>=0.52.4,<0.53.0)"
+    "uvicorn (>=0.52.4,<0.53.0)",
+    "python-dotenv (>=1.2.3,<2.0.0)",
+    "pydantic (>=2.13.4,<3.0.0)",
+    "mongo (>=0.2.0,<0.3.0)"
+]
 ]
 
 
