@@ -1,0 +1,18 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Backend del proyecto desarollo_web_3"
+authors = [
+    {name = "Emilio Campos",email = "142188965+Touch89@users.noreply.github.com"}
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "pymongo (>=4.17.0,<5.0.0)",
+    "uvicorn (>=0.52.4,<0.53.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
