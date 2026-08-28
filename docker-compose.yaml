@@ -9,3 +9,9 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+
+  backend:
+    image: backend_productos
+    container_name: backend_cont 
+    ports:
+    - "8089:8000"

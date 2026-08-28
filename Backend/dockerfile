@@ -1,0 +1,17 @@
+# imagen base ligera de python 
+FROM python:3.12-slim
+
+#creamos directorios de trabajo 
+WORKDIR /app
+
+# copiamos todo el contenido del proyecto al contenedor 
+COPY . .
+
+#EXPONER EL PUERTO DONDE SE CORRERA LA APP 
+EXPOSE 8000
+
+#Instalamos poetry 
+RUN pip install --no-cache-dir "poetry"
+
+#instalamos el resto de dependencias con poetry 
+RUN poetry install --no-root --only main --
