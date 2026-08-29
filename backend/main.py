@@ -13,7 +13,7 @@ def default():
 
 @app.get("/health")
 def health_check():
-  return {"status": "ok"}
+  return {"status": "OK"}
 
 @app.get("/productos")
 def get_productos():
