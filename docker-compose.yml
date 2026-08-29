@@ -9,6 +9,8 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+    networks:
+      - backendNetwork
 
   backend:
     build:
@@ -16,5 +18,17 @@ services:
       dockerfile: dockerfile
     image: backend_productos
     container_name: backend_container
+    volumes:
+      - ./backend:/app
+    environment:
+      MONGO_URI: mongodb://admin_user:web3@mongo:27017/
     ports:
       - "8089:8000"
+    depends_on:
+      - mongo
+    networks:
+      - backendNetwork
+
+networks:
+  backendNetwork:
+    driver: bridge
