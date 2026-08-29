@@ -6,6 +6,8 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+    networks:
+      - backendNetwork
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin_user
       MONGO_INITDB_ROOT_PASSWORD: web3
@@ -15,3 +17,17 @@ services:
     container_name: backend_container
     ports:
       - "8089:8000"
+    networks:
+      - backendNetwork
+    volumes:
+      - ./backend:/app
+
+volumes:
+  mongo_data:
+    external: true
+  backend:
+    external: true
+
+networks:
+  backendNetwork:
+    driver: bridge
