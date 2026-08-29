@@ -15,10 +15,18 @@ services:
   backend:
     image: backend_productos
     container_name: backend_container
+    volumes:
+      - ./backend:/app
     ports:
       - "8089:8000"
     networks:
       - backendNetwork
+
+volumes:
+  mongo_data:
+    external: true
+  backend:
+    external: true
 
 networks:
   backendNetwork:

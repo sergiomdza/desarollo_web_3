@@ -10,7 +10,7 @@ productos = database["productos"]
 
 @app.get("/")
 def default():
-    return {"message": "Uvicorn server running"}
+    return {"message": "HOLA MUNDO"}
 
 @app.get("/health")
 def health_check():
