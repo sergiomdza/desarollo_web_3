@@ -1,17 +1,16 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
 
-
 app = FastAPI()
 
 # Mongo DB connection
 mongo_client = MongoClient("mongodb://admin_user:web3@mongo_container:27017/")
-database = mongo_client ["Web3"]
-productos = database["products"]
+database = mongo_client["desarrollo_web_3"]
+productos = database["productos"]
 
 @app.get("/")
-def default_route():
-    return {"message": "Uvicorn is running!"}
+def default():
+    return {"message": "HOLA A MUN"}
 
 @app.get("/health")
 def health_check():

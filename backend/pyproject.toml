@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "backend-productos"
+version = "0.1.0"
+description = "FastAPI backend for productos with MongoDB"
+authors = ["Santiago Ortega"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+pymongo = "^4.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
