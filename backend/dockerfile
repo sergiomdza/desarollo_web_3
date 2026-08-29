@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY . .
+COPY ./poetry.lock ./pyproject.toml ./
 
 EXPOSE 8000
 

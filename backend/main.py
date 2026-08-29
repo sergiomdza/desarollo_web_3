@@ -14,4 +14,4 @@ def health_check():
 @app.get("/productos")
 def get_productos():
   print(productos.find({}, {"_id": 0}))
-  return list(productos.find({}, {"_id": 0}))
+  return list(productos.find({}))

@@ -21,6 +21,15 @@ services:
       - "8000:8000"
     networks:
       - backend-network
+    volumes:
+      - ./backend:/app
+
+volumes:
+  mongo_data:
+    external: true
+
+  backend-code:
+    external: true
 
 networks:
   backend-network:
