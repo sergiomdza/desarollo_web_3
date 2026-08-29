@@ -5,7 +5,7 @@ description = "Backend del proyecto desarollo_web_3"
 authors = [
     {name = "Emilio Campos",email = "142188965+Touch89@users.noreply.github.com"}
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi (>=0.141.1,<0.142.0)",
     "pymongo (>=4.17.0,<5.0.0)",
