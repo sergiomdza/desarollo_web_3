@@ -4,7 +4,7 @@ from pymongo import MongoClient
 app = FastAPI()
 
 # mongo db connection
-mongo_client = MongoClient("mongodb://admin_user:web3@localhost:27017/")
+mongo_client = MongoClient("mongodb://admin_user:web3@mongo:27017/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
@@ -14,7 +14,7 @@ def default():
 
 @app.get("/health")
 def health_check():
-    return {"Status":"ok"}
+    return {"Status":"Estoy malito nene"}
 
 @app.get("/productos")
 def get_products():
