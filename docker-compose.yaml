@@ -9,3 +9,21 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+    
+  backend:
+    image: backend_productos
+    container_name: backend_container
+    ports: 
+      - "8089:8000"
+    volumes: 
+      - ./backend:/app
+    networks:
+      - backendNetwork
+
+volumes:
+  mongo_data:
+    external: true
+    
+networks: 
+  backendNetwork: 
+    driver: bridge

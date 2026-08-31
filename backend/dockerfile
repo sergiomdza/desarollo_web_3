@@ -5,7 +5,7 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Copiamos todo el contenido del proyecto al contenedor
-COPY . .
+COPY ./poetry.lock ./pyproject.toml ./
 
 # Exponer el puerto donde correra la app
 EXPOSE 8000
@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir "poetry"
 RUN poetry install --no-root --only main --no-cache
 
 # Por ultimo definimos el comando para correr la aplicacion
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port"]
+CMD ["poetry", "run", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
