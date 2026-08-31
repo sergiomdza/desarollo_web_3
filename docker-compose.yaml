@@ -13,5 +13,17 @@ services:
   backend:
     image: backend_productos
     container_name: backend_productos
+    volumes:
+      - ./backend_code:/app
     ports:
       - "8089:8000"
+    networks:
+      - backendNetwork
+
+volumes:
+  mongo_data:
+    external: true
+
+networks:
+  backendNetwork:
+    driver: bridge
