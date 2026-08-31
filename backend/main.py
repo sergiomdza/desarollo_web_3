@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 app = FastAPI()
 
-mongo_client = MongoClient("mongodb://jon:jon@localhost:27017/")
+mongo_client = MongoClient("mongodb://jon:jon@mongo_container:27017/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
@@ -16,5 +16,5 @@ def health_check():
   return {"status":"ok"}
 
 @app.get("/productos")
-def get_pdocutso():
+def get_productos():
   return list(productos.find({}, {"_id": 0}))
