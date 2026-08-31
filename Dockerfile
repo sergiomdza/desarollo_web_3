@@ -1,6 +1,15 @@
+FROM python:3.11-slim 
 
-FROM python:3.11-slim
+WORKDIR /app
+
+RUN pip install --no-cache-dir fastapi uvicorn pymongo
+
+COPY ./backend/poetry.lock ./backend/pyproject.toml ./
+
+
+COPY ./backend /app/
+
+
 EXPOSE 8000
-RUN pip install --no-cache-dir -r requirements.txt
-RUN poetry install --no-root 
-CMD [ "poetry", "run", "python", "manage.py", "runserver", ]
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
