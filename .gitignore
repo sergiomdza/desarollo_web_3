@@ -1,2 +1,6 @@
 mongo_data/
 .mypy_cache
+.kin-node.rar
+*.rar
+kind-node.tar
+*.tar
