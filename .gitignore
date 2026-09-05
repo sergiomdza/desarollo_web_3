@@ -1,2 +1,2 @@
-# Datos locales de MongoDB
-mongo_data/
+mongo_data/*
+.venv/*
