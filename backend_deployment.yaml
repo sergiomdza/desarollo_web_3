@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: fast-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fast-backend
+  template:
+    metadata:
+      labels:
+        app: fast-backend
+    spec:
+      containers:
+        - name: backend-fast
+          image: desarollo_web_3-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
