@@ -12,6 +12,16 @@ services:
 
   backend:
     image: backend_productos
+    volumes:
+      - ./backend:/app
     container_name: backend_container
     ports:
       - "8089:8000"
+    networks:
+      - backend_network
+
+  
+
+networks:
+  backend_network:
+    driver: bridge
