@@ -2,17 +2,20 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 
 app = FastAPI()
-mongocliente = MongoClient("mongodb://admin_user:web3@mongo:27017/")
-database = mongocliente["desarrollo_web_3"]
+
+# Mongo DB connection
+mongo_client = MongoClient("mongodb://admin_user:web3@mongo_container:27017/")
+database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
+@app.get("/")
+def default():
+    return {"message": "HOLA MUNDO"}
 
-@app.get("/helpth")
+@app.get("/health")
 def health_check():
-    return("canto:exito")
+    return {"status": "ok"}
 
 @app.get("/productos")
 def get_productos():
-    return list(productos.find({}))
-
-## canto se vino a qui en mi dentro de mi :) p
+    return list(productos.find({}, {"_id": 0}))
