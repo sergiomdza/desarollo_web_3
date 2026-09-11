@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir "poetry"
 RUN poetry install --no-root --only main --no-cache
 
 # Por último definimos el comando para correr la aplicación
-CMD ["poetry", "run", "fastapi", "dev", "/app/main.py", "--host", "0.0.0.0"]
+CMD ["poetry", "run", "fastapi", "dev", "main.py", "--host", "0.0.0.0"]
 
