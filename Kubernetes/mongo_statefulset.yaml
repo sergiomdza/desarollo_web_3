@@ -1,11 +1,14 @@
-apiVersion: apps/v1
-kind: Secret
+apiVersion: v1
+kind: Service
 metadata:
-  name: mongo-secret
-type: Opaque
-data:
-  MONGO_INITDB_ROOT_USERNAME: admin
-  MONGO_INITDB_ROOT_PASSWORD: web3
+  name: mongo-service
+spec:
+  selector: 
+    app: mongo
+  ports: 
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -26,7 +29,7 @@ spec:
     spec:
       containers:
       - name: mongo
-        image: mongo:latest
+        image: mongo:7.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
@@ -41,3 +44,14 @@ spec:
             secretKeyRef:
               name: mongo-secret
               key: MONGO_INITDB_ROOT_PASSWORD
+        volumeMounts:
+        - name: mongo-persistent-storage
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-persistent-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
