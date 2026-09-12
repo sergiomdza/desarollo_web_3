@@ -15,6 +15,7 @@ docker pull mongo:7.0
 
 - CREAR LA IMAGEN EN LOCAL:
 docker build -t backend_productos .
+
 - ⁠SUBIRLA A LOS KIND NODES:
 kind load docker-image backend_productos:latest --name web3
 
