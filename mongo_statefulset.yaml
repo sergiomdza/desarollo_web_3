@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Secret
+metadata:
+  name: mongo-Secret
+type: opaque%
+
+
+--- 
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  serviceName: "mongo"
+  replicas: 1
+  selector:
+    matchlabels: 
+      app: mongo
+  template: 
+    metadata:
+      labels:
+        app: mongo
