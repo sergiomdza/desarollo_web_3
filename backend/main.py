@@ -3,7 +3,8 @@ from pymongo import MongoClient
 
 app = FastAPI()
 
-mongo_client = MongoClient("mongodb://admin_user:dfjkdfjk_2@localhost:27017/")
+mongo_client = MongoClient("mongodb://admin_user:dfjkdfjk_2@mongo-service.default.svc.cluster.local:27017/")
+
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
