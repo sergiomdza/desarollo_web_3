@@ -3,12 +3,21 @@ kind: Service
 metadata:
   name: mongo-service
 spec:
-  selector: 
+  selector:
     app: mongo
-  ports: 
+  ports:
     - protocol: TCP
       port: 27017
       targetPort: 27017
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-secret
+type: Opaque
+stringData:
+  MONGO_INITDB_ROOT_USERNAME: admin
+  MONGO_INITDB_ROOT_PASSWORD: web3
 ---
 apiVersion: apps/v1
 kind: StatefulSet
