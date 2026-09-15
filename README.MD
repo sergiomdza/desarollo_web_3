@@ -41,6 +41,3 @@ kubectl get nodes
 
 -- CREAR CLUSTER DE KIND --
 kind create cluster --config kind-config.yaml --name web3
-
-
-HOLA PRUEBA
