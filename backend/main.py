@@ -4,18 +4,18 @@ from pymongo import MongoClient
 app = FastAPI()
 
 # Mongo DB connection
-mongo_client = MongoClient("mongodb://admin_user:web3@mongo-service.default.svc.cluster.local:27017/")
+mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27017/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
 @app.get("/")
 def default():
-    return {"HOLA MUNDO"}
+    return {"message": "SE ACABO LA CLASE"}
 
 @app.get("/health")
 def health_check():
-    return {"status":"ok"}
+    return {"status": "ok"}
 
 @app.get("/productos")
 def get_productos():
-    return list(productos.find({}, {"_id":0}))
+    return list(productos.find({}, {"_id": 0}))

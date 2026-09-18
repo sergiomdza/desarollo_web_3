@@ -1,4 +1,1 @@
-mongo_data/
-node_modules/
-.env
-.DS_Store
+mongo_data/*
