@@ -8,10 +8,9 @@ mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.clust
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
-
 @app.get("/")
 def default():
-    return {"message": "uvicorn server running"}
+    return {"message": "HOLA MUNDO"}
 
 @app.get("/health")
 def health_check():
