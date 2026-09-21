@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: fast-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,7 +17,7 @@ metadata:
   labels:
     app: fast-backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: fast-backend
