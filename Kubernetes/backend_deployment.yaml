@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: backend-fast
-          image: backend_productos:latest
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/sergiomdza/desarollo_web_3:emiliano_martinez-latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
