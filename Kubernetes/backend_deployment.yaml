@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: backend-service
 spec:
@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: backend-fast
-          image: ghcr.io/sergiomdza/desarollo_web_3:dulmy_tamayo
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/sergiomdza/desarollo_web_3:dulmy_tamayo-latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
