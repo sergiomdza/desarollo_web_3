@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: fast-backend
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,7 +28,7 @@ spec:
     spec:
       containers:
       - name: backend-fast
-        image: backend_productos:latest
+        image: ghcr.io/sergiomdza/desarrollo_web_3:anderson-guillermo-latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
