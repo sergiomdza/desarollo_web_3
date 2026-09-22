@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: backend-fast
-        image: ghcr.io/sergiomdza/desarrollo_web_3:Emilio_Campos-3-latest
-        imagePullPolicy: IfNotPresent
+        image: ghcr.io/sergiomdza/desarrollo_web_3:Emilio_Campos-latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
