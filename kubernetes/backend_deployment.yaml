@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: backend-fast
-          image: desarollo_web_3-backend:latest
+          image: ghcr.io/sergiomdza/desarollo_web_3:abraham_gonzalez-latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
