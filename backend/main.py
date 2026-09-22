@@ -12,7 +12,7 @@ productos = database["productos"]
 
 @app.get("/")
 def default():
-    return {"message": "HOLA MUNDO"}
+    return {"message": "SE ACABO LA CLASE"}
 
 @app.get("/health")
 def health_check():
