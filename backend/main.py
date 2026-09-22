@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
 
-mongo_client = MongoClient("mongodb://admin_user:dfjkdfjk_2@mongo-service.default.svc.cluster.local:27017/")
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
+mongo_client = MongoClient("mongodb://admin_user:dfjkdfjk_2@mongo-service.default.svc.cluster.local:27017/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
