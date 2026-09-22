@@ -1,4 +1,4 @@
-/mongo_data/
+mongodata/
 .env
 node_modules/
 __pycache__/

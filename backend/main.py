@@ -1,21 +1,23 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
-# mongo db connection
-mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27019/")
+# Mongo DB connection
+mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27017/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
 @app.get("/")
 def default():
-    return {"message":"Uvicorn server running"}
+    return {"message": "SE ACABO LA CLASE"}
 
 @app.get("/health")
 def health_check():
-    return {"Status":"Estoy malito nene"}
+    return {"status": "ok"}
 
 @app.get("/productos")
-def get_products():
+def get_productos():
     return list(productos.find({}, {"_id": 0}))
