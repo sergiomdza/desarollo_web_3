@@ -3,12 +3,13 @@ services:
     image: mongo:latest
     container_name: mongo_container
     environment:
+      GLIBC_TUNABLES: glibc.pthread.rseq=1
       MONGO_INITDB_ROOT_USERNAME: admin_user 
       MONGO_INITDB_ROOT_PASSWORD: web3
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27018:27017"
     volumes:
-      - ./mongo_data:/data/db
+      - mongo_data:/data/db
     networks:
       - backendNetwork
 
@@ -24,6 +25,7 @@ services:
 
 volumes:
   mongo_data:
+    name: web3_mongo_compass_data_20260923
     external: true
   backend:
     external: true
