@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: backend-fast
-        image: ghcr.io/sergiomdza/desarollo_web_3:Eliam_Matus-latest
+        image: ghcr.io/sergiomdza/desarollo_web_3:Juan_Cervantes-latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
