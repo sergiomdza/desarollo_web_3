@@ -1,5 +1,5 @@
 # Imagen base ligera de Python
-FROM python:3.13-slim
+FROM python:3.12-slim
 
 # Creamos directorio de trabajo
 WORKDIR /app
@@ -7,14 +7,14 @@ WORKDIR /app
 # Copiamos todo el contenido del proyecto al contenedor
 COPY . .
 
-# Exponer el puerto donde correra la app
+# Exponer el puerto donde correrá la app
 EXPOSE 8000
 
 # Instalamos poetry
 RUN pip install --no-cache-dir "poetry"
 
-# Instalamos el resto de dependencias de Poetry¡
+# Instalamos el resto de dependencias con Poetry
 RUN poetry install --no-root --only main --no-cache
 
-# Por ultimo definimos el comando para correr la aplicacion
+# Por último definimos el comando para correr la aplicación
 CMD ["poetry", "run", "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
