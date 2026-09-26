@@ -1,20 +1,17 @@
-[project]
-name = "desarollo-web-3"
+[tool.poetry]
+name = "backend-productos"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Your Name",email = "you@example.com"}
-]
-readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "pymongo (>=4.17.0,<5.0.0)",
-    "fastapi (>=0.141.1,<0.142.0)",
-    "uvicorn (>=0.52.4,<0.53.0)",
-    "prometheus-fastapi-instrumentator (>=8.1.0,<9.0.0)"
-]
+description = "FastAPI backend for productos with MongoDB"
+authors = ["Santiago Ortega"]
 
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.141.1"
+uvicorn = "^0.52.4"
+pymongo = "^4.17.0"
+prometheus-fastapi-instrumentator = "^7.1.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 build-backend = "poetry.core.masonry.api"
