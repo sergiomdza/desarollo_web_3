@@ -41,3 +41,25 @@ kubectl get nodes
 
 -- CREAR CLUSTER DE KIND --
 kind create cluster --config kind-config.yaml --name web3
+
+-- OBSERVABILIDAD --
+
+El backend expone las métricas de Prometheus en `GET /metrics`. Para desplegar
+Prometheus y Grafana junto con MongoDB y el backend:
+
+```bash
+cd Kubernetes
+./setup_app.sh
+```
+
+Para acceder desde la máquina local:
+
+```bash
+kubectl port-forward service/prometheus 9090:9090
+kubectl port-forward service/grafana 3000:3000
+```
+
+Prometheus estará en http://localhost:9090 y Grafana en http://localhost:3000.
+Las credenciales iniciales de Grafana son `admin` / `admin`. En Prometheus se
+puede comprobar el objetivo en **Status > Target health**; debe aparecer
+`backend-service.default.svc.cluster.local:8000` como `UP`.
