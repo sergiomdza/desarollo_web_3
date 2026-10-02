@@ -10,7 +10,7 @@ Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 # Mongo DB connection
 mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27017/")
 database = mongo_client["desarrollo_web_3"]
-productos = database["productos"]
+productos = database["products"]
 
 @app.get("/")
 def default():
