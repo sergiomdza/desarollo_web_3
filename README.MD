@@ -14,16 +14,16 @@ docker pull mongo:7.0
 -- CADA QUE CAMBIEN EL CÓDIGO EN EL BACKEND TIENE QUE CORRER ESTOS DOS: -- 
 
 - CREAR LA IMAGEN EN LOCAL:
-docker build -t backend_productos .
+docker build -t backend_productos ./backend
 
 - ⁠SUBIRLA A LOS KIND NODES:
 kind load docker-image backend_productos:latest --name web3
 
 -- Aplicar nuestro deployment del backend -- 
-kubectl apply -f backend_deployment.yaml
+kubectl apply -f Kubernetes/backend_deployment.yaml
 
 -- Aplicar nuestro deployment de mongo -- 
-kubectl apply -f mongo_statefulset.yaml
+kubectl apply -f Kubernetes/mongo_statefulset.yaml
 
 -- SUBIR IMAGENES AL KIND NODE --
 kind load docker-image backend_productos:latest --name web3
