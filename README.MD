@@ -26,6 +26,7 @@ kubectl apply -f mongo_statefulset.yaml
 
 -- SUBIR IMAGENES AL KIND NODE --
 kind load docker-image backend_productos:latest --name web3
+kind load docker-image grafana/grafana:12.1.1 --name web3
 
 -- EXPORTAR E IMPORTAR IMAGENES DE MONGO -- 
 --- Importar --- 
