@@ -80,7 +80,7 @@ spec:
           env:
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: grafana-secret
                   key: GRAFANA_USERNAME
             - name: GF_SECURITY_ADMIN_PASSWORD
@@ -118,9 +118,9 @@ metadata:
 data:
   datasource.yaml: |
     apiVersion: 1
-    datasource:
+    datasources:
       - name: Prometheus
-        type: Prometheus
+        type: prometheus
         access: proxy
         url: http://prometheus-service.default.svc.cluster.local:9090
         isDefault: true
@@ -132,5 +132,5 @@ metadata:
   name: grafana-secret
 type: Opaque
 stringData:
-  MONGO_INITDB_ROOT_USERNAME: grafana_admin
-  MONGO_INITDB_ROOT_PASSWORD: web3
+  GRAFANA_USERNAME: grafana_admin
+  GRAFANA_PASSWORD: web3
