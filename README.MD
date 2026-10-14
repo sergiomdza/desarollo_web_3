@@ -18,6 +18,7 @@ docker build -t backend_productos .
 
 - ⁠SUBIRLA A LOS KIND NODES:
 kind load docker-image backend_productos:latest --name web3
+kind load docker-image grafana/grafana:12.1.1 --name web3
 
 -- Aplicar nuestro deployment del backend -- 
 kubectl apply -f backend_deployment.yaml
