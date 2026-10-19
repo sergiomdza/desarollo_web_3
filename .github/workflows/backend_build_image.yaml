@@ -1,10 +1,10 @@
 #
 name: BACKEND - Create and publish a Docker image
 
-# Configures this workflow to run every time a change is pushed to the branch called `release`.
+# Runs on pushes to the configured development branches.
 on:
   push:
-    branches: ['sergio_mendoza']
+    branches: ['sergio_mendoza', 'EmilioVarguez']
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
@@ -49,6 +49,7 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: ./backend
+          file: ./backend/dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
