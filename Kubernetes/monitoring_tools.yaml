@@ -81,7 +81,7 @@ spec:
           image: grafana/grafana:12.1.1
           imagePullPolicy: IfNotPresent
           env:
-            - name: GF_SECURITY_ADMIN_USERNAME
+            - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:
                   name: grafana-secret
@@ -120,13 +120,13 @@ metadata:
 data:
   datasource.yml: |
     apiVersion: 1
-    datasource:
+    datasources:
       - name: prometheus
-      type: prometheus
-      access: proxy
-      url: http://prometheus-service.default.svc.cluster.local:9090
-      isDefault: true
-      editable: false
+        type: prometheus
+        access: proxy
+        url: http://prometheus-service.default.svc.cluster.local:9090
+        isDefault: true
+        editable: false
 ---
 apiVersion: v1
 kind: Secret
@@ -134,5 +134,5 @@ metadata:
   name: grafana-secret
 type: Opaque
 stringData:
-  GRAFANA_USERNAME: grafana_admin
+  GRAFANA_USER: grafana_admin
   GRAFANA_PASSWORD: web3
