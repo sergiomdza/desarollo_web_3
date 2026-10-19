@@ -15,14 +15,14 @@ spec:
         app: prometheus
     spec:
       containers:
-      - name: prometheus
-        image: prom/prometheus:v3.5.0
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 9090
-        volumeMounts:
-          - name: prometheus-config
-            mountPath: /etc/prometheus
+        - name: prometheus
+          image: prom/prometheus:v3.5.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: prometheus-config
+              mountPath: /etc/prometheus
 
       volumes:
         - name: prometheus-config
