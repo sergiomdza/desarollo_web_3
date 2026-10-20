@@ -18,6 +18,16 @@ def default_route():
 def health_check():
     return {"status": "ok"}
 
+@app.get("/error_400")
+def get_error():
+    raise HTTPException(status_code=400, detail="El ID no puede ser cero")
+    return []
+
+@app.get("/error_500")
+def get_error():
+    raise HTTPException(status_code=500, detail="Error en la conexión a la DB")
+    return []
+
 @app.get("/productos")
 def get_productos():
     productos_list = list(productos.find({}))  # Exclude the _id field from the results
