@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 from prometheus_fastapi_instrumentator import Instrumentator
+import time
 
 app = FastAPI()
 Instrumentator().instrument(app).expose(app, endpoint="/metrics")
@@ -35,3 +36,8 @@ def get_error():
 @app.get("/logins")
 def get_error():
     return [1,2,3,4,5]
+
+@app.get("/wait")
+def get_error():
+    time.sleep(3)
+    return "Respuesta despues de 3 segundos"
