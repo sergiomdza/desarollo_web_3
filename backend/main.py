@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPExeption
 from pymongo import MongoClient
 from prometheus_fastapi_instrumentator import Instrumentator
 
