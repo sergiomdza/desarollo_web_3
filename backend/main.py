@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPExeption
+from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 from prometheus_fastapi_instrumentator import Instrumentator
 
@@ -24,12 +24,12 @@ def get_productos():
 
 @app.get("/error_400")
 def get_error():
-    raise HTTPExeption(status_code=400, detail="El id no puede ser cero")
+    raise HTTPException(status_code=400, detail="El id no puede ser cero")
     return []
 
 @app.get("/error_500")
 def get_error():
-    raise HTTPExeption(status_code=500, detail="Error en la conexión a la DB")
+    raise HTTPException(status_code=500, detail="Error en la conexión a la DB")
     return[]
 
 @app.get("/logins")
