@@ -15,19 +15,25 @@ spec:
         app: prometheus
     spec:
       containers:
-        - name: prometheus
-          image: prom/prometheus:v3.5.0
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 9090
-          volumeMounts:
-            - name: prometheus-config
-              mountPath: /etc/prometheus/
+      - name: prometheus
+        image: prom/prometheus:v3.5.0
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 9090
+        volumeMounts:
+          - name: prometheus-config
+            mountPath: /etc/prometheus
+          - name: prometheus-data
+            mountPath: /prometheus
 
       volumes:
         - name: prometheus-config
           configMap:
             name: prometheus-config
+        - name: prometheus-data
+          persistentVolumeClaim:
+            claimName: prometheus-data
+
 ---
 apiVersion: v1
 kind: Service
@@ -74,30 +80,34 @@ spec:
         app: grafana
     spec:
       containers:
-        - name: grafana
-          image: grafana/grafana:12.1.1
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: GF_SECURITY_ADMIN_USER
-              valueFrom:
-                secretKeyRef:
-                  name: grafana-secret
-                  key: GRAFANA_USERNAME
-            - name: GF_SECURITY_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: grafana-secret
-                  key: GRAFANA_PASSWORD
-          ports:
-            - containerPort: 3000
-          volumeMounts:
-            - name: datasource
-              mountPath: /etc/grafana/provisioning/datasources
-
+      - name: grafana
+        image: grafana/grafana:12.1.1
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: grafana-secret
+                key: GRAFANA_USERNAME
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: grafana-secret
+                key: GRAFANA_PASSWORD
+        ports:
+          - containerPort: 3000
+        volumeMounts:
+          - name: datasources
+            mountPath: /etc/grafana/provisioning/datasources
+          - name: data
+            mountPath: /var/lib/grafana
       volumes:
-        - name: datasource
+        - name: datasources
           configMap:
             name: grafana-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: grafana-data
 ---
 apiVersion: v1
 kind: Service
@@ -116,7 +126,7 @@ kind: ConfigMap
 metadata:
   name: grafana-config
 data:
-  datasource.yaml: |
+  datasource.yml: |
     apiVersion: 1
     datasources:
       - name: Prometheus
@@ -124,6 +134,13 @@ data:
         access: proxy
         url: http://prometheus-service.default.svc.cluster.local:9090
         isDefault: true
+        editable: false
+      - name: Loki
+        uid: loki
+        type: loki
+        access: proxy
+        url: http://loki-service.default.svc.cluster.local:3100
+        isDefault: false
         editable: false
 ---
 apiVersion: v1
@@ -134,3 +151,27 @@ type: Opaque
 stringData:
   GRAFANA_USERNAME: grafana_admin
   GRAFANA_PASSWORD: web3
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
