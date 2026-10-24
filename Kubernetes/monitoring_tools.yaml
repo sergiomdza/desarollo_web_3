@@ -118,12 +118,19 @@ metadata:
 data:
   datasource.yaml: |
     apiVersion: 1
-    datasource:
+    datasources:
       - name: Prometheus
-        type: Prometheus
+        type: prometheus
         access: proxy
         url: http://prometheus-service.default.svc.cluster.local:9090
         isDefault: true
+        editable: false
+      - name: Loki
+        uid: loki
+        type: loki
+        access: proxy
+        url: http://loki-service.default.svc.cluster.local:3100
+        isDefault: false
         editable: false
 ---
 apiVersion: v1
