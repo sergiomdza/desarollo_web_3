@@ -6,3 +6,61 @@ INTRUCCIONES GENERALES:
 Al principio del semestre:
 - cada persona tendrá su propia rama y se encargará de seguir la clase
 - cada rama tendrá nombre_apellido 
+
+-- DESCARGAR IMAGENES --
+docker pull mongo:7.0
+
+
+-- CADA QUE CAMBIEN EL CÓDIGO EN EL BACKEND TIENE QUE CORRER ESTOS DOS: -- 
+
+- CREAR LA IMAGEN EN LOCAL:
+docker build -t backend_productos .
+
+- ⁠SUBIRLA A LOS KIND NODES:
+kind load docker-image backend_productos:latest --name web3
+kind load docker-image grafana/grafana:12.1.1 --name web3
+
+-- Aplicar nuestro deployment del backend -- 
+kubectl apply -f backend_deployment.yaml
+
+-- Aplicar nuestro deployment de mongo -- 
+kubectl apply -f mongo_statefulset.yaml
+
+-- SUBIR IMAGENES AL KIND NODE --
+kind load docker-image backend_productos:latest --name web3
+
+-- EXPORTAR E IMPORTAR IMAGENES DE MONGO -- 
+--- Importar --- 
+docker save -o kind-node.tar kindest/node
+
+--- Exportar --- 
+docker import kind-node.tar kindest/node
+
+-- COMO SABER SI MI KUBERNTES CLUSTER DE KIND ESTÁ VIVO -- 
+kubectl cluster-info --context kind-web3
+kubectl get nodes
+
+-- CREAR CLUSTER DE KIND --
+kind create cluster --config kind-config.yaml --name web3
+
+-- OBSERVABILIDAD --
+
+El backend expone las métricas de Prometheus en `GET /metrics`. Para desplegar
+Prometheus y Grafana junto con MongoDB y el backend:
+
+```bash
+cd Kubernetes
+./setup_app.sh
+```
+
+Para acceder desde la máquina local:
+
+```bash
+kubectl port-forward service/prometheus 9090:9090
+kubectl port-forward service/grafana 3000:3000
+```
+
+Prometheus estará en http://localhost:9090 y Grafana en http://localhost:3000.
+Las credenciales iniciales de Grafana son `admin` / `admin`. En Prometheus se
+puede comprobar el objetivo en **Status > Target health**; debe aparecer
+`backend-service.default.svc.cluster.local:8000` como `UP`.
