@@ -1,10 +1,38 @@
-from fastapi import FastAPI, HTTPException
+import logging
+import time
+
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exception_handlers import http_exception_handler
 from pymongo import MongoClient
 from prometheus_fastapi_instrumentator import Instrumentator
-import time
+from pythonjsonlogger.json import JsonFormatter
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+# --- Logs en formato JSON para poder filtrarlos en Loki/Grafana ---
+handler = logging.StreamHandler()
+handler.setFormatter(JsonFormatter("{asctime}{levelname}{name}{message}", style="{"))
+
+# Nuestro logger y el de uvicorn (arranque y errores no controlados) usan el mismo formato
+for name in ("backend", "uvicorn"):
+    logging.getLogger(name).handlers = [handler]
+
+logger = logging.getLogger("backend")
+logger.setLevel(logging.INFO)
+
+# Sin log por cada petición: los errores HTTP los registra log_http_exception
+# y el conteo/latencia de peticiones ya lo tenemos en Prometheus
+logging.getLogger("uvicorn.access").disabled = True
 
 app = FastAPI()
 Instrumentator().instrument(app).expose(app, endpoint="/metrics")
+
+
+# Registra el mensaje (detail) de cada HTTPException, incluidos los 404 de rutas inexistentes
+@app.exception_handler(StarletteHTTPException)
+async def log_http_exception(request: Request, exc: StarletteHTTPException):
+    nivel = logging.ERROR if exc.status_code >= 500 else logging.WARNING
+    logger.log(nivel, exc.detail, extra={"path": request.url.path, "status_code": exc.status_code})
+    return await http_exception_handler(request, exc)
 
 # Mongo DB connection
 mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27017/")
